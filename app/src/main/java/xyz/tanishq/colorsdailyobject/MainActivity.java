@@ -1,17 +1,20 @@
 package xyz.tanishq.colorsdailyobject;
 
 import android.annotation.TargetApi;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    LinearLayout book, cap, chair, pen, pencil, table;
+    LinearLayout ball, bat, chair, pen, pencil, table;
     LinearLayout black, red, orange, yellow, green, blue;
     LinearLayout output;
     boolean isShapeSelected = false;
@@ -26,12 +29,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     MediaPlayer blackS;
     MediaPlayer greenS;
 
+    ImageView objectImages;
+    TextView outputText;
 
-    MediaPlayer chairS, tableS, capS, bookS, pencilS, penS;
+    MediaPlayer chairS, tableS, batS, ballS, pencilS, penS;
     MediaPlayer blackChairS, blueChairS, redChairS, yellowChairS, greenChairS, orangeChairS;
     MediaPlayer blackTableS, blueTableS, redTableS, yellowTableS, greenTableS, orangeTableS;
-    MediaPlayer blackCapS, blueCapS, redCapS, yellowCapS, greenCapS, orangeCapS;
-    MediaPlayer blackBookS, blueBookS, redBookS, yellowBookS, greenBookS, orangeBookS;
+    MediaPlayer blackbatS, bluebatS, redbatS, yellowbatS, greenbatS, orangebatS;
+    MediaPlayer blackballS, blueballS, redballS, yellowballS, greenballS, orangeballS;
     MediaPlayer blackPencilS, bluePencilS, redPencilS, yellowPencilS, greenPencilS, orangePencilS;
     MediaPlayer blackPenS, bluePenS, redPenS, yellowPenS, greenPenS, orangePenS;
 
@@ -41,8 +46,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        book = (LinearLayout) findViewById(R.id.book);
-        cap = (LinearLayout) findViewById(R.id.cap);
+        ball = (LinearLayout) findViewById(R.id.ball);
+        bat = (LinearLayout) findViewById(R.id.bat);
         chair = (LinearLayout) findViewById(R.id.chair);
         pen = (LinearLayout) findViewById(R.id.pen);
         pencil = (LinearLayout) findViewById(R.id.pencil);
@@ -56,10 +61,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         blue = (LinearLayout) findViewById(R.id.blue);
 
         int colorids[] = {R.id.black, R.id.blue, R.id.red, R.id.yellow, R.id.orange, R.id.green};
-        int objectids[] = {R.id.table, R.id.book, R.id.cap, R.id.pen, R.id.pencil, R.id.chair};
+        int objectids[] = {R.id.table, R.id.ball, R.id.bat, R.id.pen, R.id.pencil, R.id.chair};
 
-        book.setOnClickListener(this);
-        cap.setOnClickListener(this);
+        objectImages = (ImageView) findViewById(R.id.objectImages);
+        outputText = (TextView) findViewById(R.id.outputText);
+
+        ball.setOnClickListener(this);
+        bat.setOnClickListener(this);
         chair.setOnClickListener(this);
         pen.setOnClickListener(this);
         pencil.setOnClickListener(this);
@@ -81,8 +89,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //objects
         chairS = MediaPlayer.create(this, R.raw.chair);
-        bookS = MediaPlayer.create(this, R.raw.book);
-        capS = MediaPlayer.create(this, R.raw.cap);
+        ballS = MediaPlayer.create(this, R.raw.ball);
+        batS = MediaPlayer.create(this, R.raw.bat);
         penS = MediaPlayer.create(this, R.raw.pen);
         pencilS = MediaPlayer.create(this, R.raw.pencil);
         tableS = MediaPlayer.create(this, R.raw.table);
@@ -119,21 +127,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         yellowPencilS = MediaPlayer.create(this, R.raw.yellowpencil);
         greenPencilS = MediaPlayer.create(this, R.raw.greenpencil);
 
-        //combination of book
-        blackBookS = MediaPlayer.create(this, R.raw.blackbook);
-        redBookS = MediaPlayer.create(this, R.raw.redbook);
-        orangeBookS = MediaPlayer.create(this, R.raw.orangebook);
-        blueBookS = MediaPlayer.create(this, R.raw.bluebook);
-        yellowBookS = MediaPlayer.create(this, R.raw.yellowbook);
-        greenBookS = MediaPlayer.create(this, R.raw.greenbook);
+        //combination of ball
+        blackballS = MediaPlayer.create(this, R.raw.blackball);
+        redballS = MediaPlayer.create(this, R.raw.redball);
+        orangeballS = MediaPlayer.create(this, R.raw.orangeball);
+        blueballS = MediaPlayer.create(this, R.raw.blueball);
+        yellowballS = MediaPlayer.create(this, R.raw.yellowball);
+        greenballS = MediaPlayer.create(this, R.raw.greenball);
 
-        //combination of cap
-        blackCapS = MediaPlayer.create(this, R.raw.blackcap);
-        redCapS = MediaPlayer.create(this, R.raw.redcap);
-        orangeCapS = MediaPlayer.create(this, R.raw.orangecap);
-        blueCapS = MediaPlayer.create(this, R.raw.bluecap);
-        yellowCapS = MediaPlayer.create(this, R.raw.yellowcap);
-        greenCapS = MediaPlayer.create(this, R.raw.greencap);
+        //combination of bat
+        blackbatS = MediaPlayer.create(this, R.raw.blackbat);
+        redbatS = MediaPlayer.create(this, R.raw.redbat);
+        orangebatS = MediaPlayer.create(this, R.raw.orangebat);
+        bluebatS = MediaPlayer.create(this, R.raw.bluebat);
+        yellowbatS = MediaPlayer.create(this, R.raw.yellowbat);
+        greenbatS = MediaPlayer.create(this, R.raw.greenbat);
 
     }
 
@@ -150,6 +158,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     output.setBackgroundColor(getResources().getColor(R.color.black));
                     isColorSelected=true;
                     blackS.start();
+
+                    //info
+                    objectImages.setVisibility(View.GONE);
+                    outputText.setText("Black");
+                    outputText.setTextSize(50);
+                    outputText.setTextColor(Color.parseColor("#FFFFFF"));
+
                     colorSelected = black;
 
                     break;
@@ -159,12 +174,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     blueS.start();
                     colorSelected = blue;
 
+                    //info
+                    objectImages.setVisibility(View.GONE);
+                    outputText.setText("Blue");
+                    outputText.setTextSize(50);
+                    outputText.setTextColor(Color.parseColor("#FFFFFF"));
+
                     break;
                 case R.id.green:
                     output.setBackgroundColor(getResources().getColor(R.color.green));
                     isColorSelected=true;
                     greenS.start();
                     colorSelected = green;
+
+                    //info
+                    objectImages.setVisibility(View.GONE);
+                    outputText.setText("Green");
+                    outputText.setTextSize(50);
+                    outputText.setTextColor(Color.parseColor("#FFFFFF"));
 
                     break;
                 case R.id.yellow:
@@ -173,12 +200,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     yellowS.start();
                     colorSelected = yellow;
 
+                    //info
+                    objectImages.setVisibility(View.GONE);
+                    outputText.setText("Yellow");
+                    outputText.setTextSize(50);
+                    outputText.setTextColor(Color.parseColor("#FFFFFF"));
+
                     break;
                 case R.id.red:
                     output.setBackgroundColor(getResources().getColor(R.color.red));
                     isColorSelected=true;
                     redS.start();
                     colorSelected = red;
+
+                    //info
+                    objectImages.setVisibility(View.GONE);
+                    outputText.setText("Red");
+                    outputText.setTextSize(50);
+                    outputText.setTextColor(Color.parseColor("#FFFFFF"));
 
                     break;
                 case R.id.orange:
@@ -187,47 +226,91 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     orangeS.start();
                     colorSelected = orange;
 
-                    break;
-                case R.id.book:
-                    output.setBackground(getResources().getDrawable(R.drawable.book));
-                    isShapeSelected=true;
-                    bookS.start();
-                    shapeSelected = book;
+                    //info
+                    objectImages.setVisibility(View.GONE);
+                    outputText.setText("Orange");
+                    outputText.setTextSize(50);
+                    outputText.setTextColor(Color.parseColor("#FFFFFF"));
 
                     break;
-                case R.id.cap:
-                    output.setBackground(getResources().getDrawable(R.drawable.cap));
+                case R.id.ball:
+                    output.setBackgroundColor(Color.parseColor("#FFFFFF"));
                     isShapeSelected=true;
-                    capS.start();
-                    shapeSelected = cap;
+                    ballS.start();
+                    shapeSelected = ball;
+
+                    //object info
+
+                    objectImages.setBackground(getResources().getDrawable(R.drawable.ball));
+                    objectImages.setVisibility(View.VISIBLE);
+                    outputText.setTextColor(Color.parseColor("#000000"));
+                    outputText.setText("Ball");
+                    outputText.setTextSize(30);
+
+                    break;
+                case R.id.bat:
+                    output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                    objectImages.setBackground(getResources().getDrawable(R.drawable.bat));
+                    isShapeSelected=true;
+                    batS.start();
+                    shapeSelected = bat;
+
+                    objectImages.setVisibility(View.VISIBLE);
+                    outputText.setTextColor(Color.parseColor("#000000"));
+                    outputText.setText("Bat");
+                    outputText.setTextSize(30);
 
                     break;
                 case R.id.chair:
-                    output.setBackground(getResources().getDrawable(R.drawable.chair));
+                    output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                    objectImages.setBackground(getResources().getDrawable(R.drawable.chair));
                     isShapeSelected=true;
                     chairS.start();
                     shapeSelected = chair;
+                    output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                    objectImages.setVisibility(View.VISIBLE);
+                    outputText.setTextColor(Color.parseColor("#000000"));
+                    outputText.setText("Chair");
+                    outputText.setTextSize(30);
 
                     break;
                 case R.id.pen:
-                    output.setBackground(getResources().getDrawable(R.drawable.pen));
+                    output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                    objectImages.setBackground(getResources().getDrawable(R.drawable.pen));
                     isShapeSelected=true;
                     penS.start();
                     shapeSelected = pen;
 
+                    objectImages.setVisibility(View.VISIBLE);
+                    outputText.setTextColor(Color.parseColor("#000000"));
+                    outputText.setText("Pen");
+                    outputText.setTextSize(30);
+
                     break;
                 case R.id.pencil:
-                    output.setBackground(getResources().getDrawable(R.drawable.pencil));
+                    output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                    objectImages.setBackground(getResources().getDrawable(R.drawable.pencil));
                     isShapeSelected=true;
                     pencilS.start();
                     shapeSelected = pencil;
 
+                    objectImages.setVisibility(View.VISIBLE);
+                    outputText.setTextColor(Color.parseColor("#000000"));
+                    outputText.setText("Pencil");
+                    outputText.setTextSize(30);
+
                     break;
                 case R.id.table:
-                    output.setBackground(getResources().getDrawable(R.drawable.table));
+                    objectImages.setBackground(getResources().getDrawable(R.drawable.table));
                     isShapeSelected=true;
                     tableS.start();
                     shapeSelected = table;
+
+                    output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                    objectImages.setVisibility(View.VISIBLE);
+                    outputText.setTextColor(Color.parseColor("#000000"));
+                    outputText.setText("Table");
+                    outputText.setTextSize(30);
 
                     break;
 
@@ -240,166 +323,317 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.table:
                     switch (id) {
                         case R.id.black:
-                            output.setBackground(getResources().getDrawable(R.drawable.blacktable));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.blacktable));
                             isColorSelected = true;
                             blackTableS.start();
                             colorSelected = black;
 
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Black Table");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.blue:
-                            output.setBackground(getResources().getDrawable(R.drawable.bluetable));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.bluetable));
                             colorSelected = blue;
                             blueTableS.start();
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Blue Table");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.green:
-                            output.setBackground(getResources().getDrawable(R.drawable.greentable));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.greentable));
                             isColorSelected = true;
                             greenTableS.start();
                             colorSelected = green;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Green Table");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.yellow:
-                            output.setBackground(getResources().getDrawable(R.drawable.yellowtable));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.yellowtable));
                             isColorSelected = true;
                             yellowTableS.start();
                             colorSelected = yellow;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Yellow Table");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.red:
-                            output.setBackground(getResources().getDrawable(R.drawable.redtable));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.redtable));
                             isColorSelected = true;
                             redTableS.start();
                             colorSelected = red;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Red Table");
+                            outputText.setTextSize(30);
                             break;
 
                         case R.id.orange:
-                            output.setBackground(getResources().getDrawable(R.drawable.orangetable));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.orangetable));
                             isColorSelected = true;
                             orangeTableS.start();
                             colorSelected = orange;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Orange Table");
+                            outputText.setTextSize(30);
                             break;
 
-                        case R.id.book:
-                            output.setBackground(getResources().getDrawable(R.drawable.book));
-                            bookS.start();
+                        case R.id.ball:
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.ball));
+                            ballS.start();
                             isShapeSelected=true;
-                            shapeSelected = book;
+                            shapeSelected = ball;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Ball");
+                            outputText.setTextSize(30);
 
                             break;
-                        case R.id.cap:
-                            output.setBackground(getResources().getDrawable(R.drawable.cap));
+                        case R.id.bat:
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.bat));
                             isShapeSelected=true;
-                            capS.start();
-                            shapeSelected = cap;
+                            batS.start();
+                            shapeSelected = bat;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Bat");
+                            outputText.setTextSize(30);
 
                             break;
                         case R.id.chair:
-                            output.setBackground(getResources().getDrawable(R.drawable.chair));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.chair));
                             isShapeSelected=true;
                             chairS.start();
                             shapeSelected = chair;
 
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Chair");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.pen:
-                            output.setBackground(getResources().getDrawable(R.drawable.pen));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.pen));
                             isShapeSelected=true;
                             penS.start();
                             shapeSelected = pen;
 
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Pen");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.pencil:
-                            output.setBackground(getResources().getDrawable(R.drawable.pencil));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.pencil));
                             isShapeSelected=true;
                             pencilS.start();
                             shapeSelected = pencil;
 
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Pencil");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.table:
-                            output.setBackground(getResources().getDrawable(R.drawable.table));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.table));
                             isShapeSelected=true;
                             tableS.start();
                             shapeSelected = table;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Table");
+                            outputText.setTextSize(30);
 
                             break;
                     }
                     break;
-                case R.id.book:
+                case R.id.ball:
                     switch (id) {
                         case R.id.black:
-                            output.setBackground(getResources().getDrawable(R.drawable.blackbook));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.blackball));
                             isColorSelected = true;
-                            blackBookS.start();
+                            blackballS.start();
                             colorSelected = black;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Black Ball");
+                            outputText.setTextSize(30);
 
                             break;
                         case R.id.blue:
-                            output.setBackground(getResources().getDrawable(R.drawable.bluebook));
-                            blueBookS.start();
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.blueball));
+                            blueballS.start();
                             colorSelected = blue;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Blue Ball");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.green:
-                            output.setBackground(getResources().getDrawable(R.drawable.greenbook));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.greenball));
                             isColorSelected = true;
-                            greenBookS.start();
+                            greenballS.start();
                             colorSelected = green;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Green Ball");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.yellow:
-                            output.setBackground(getResources().getDrawable(R.drawable.yellowbook));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.yellowball));
                             isColorSelected = true;
-                            yellowBookS.start();
+                            yellowballS.start();
                             colorSelected = yellow;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Yellow Ball");
+                            outputText.setTextSize(30);
                             break;
                         case R.id.red:
-                            output.setBackground(getResources().getDrawable(R.drawable.redbook));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.redball));
                             isColorSelected = true;
-                            redBookS.start();
+                            redballS.start();
                             colorSelected = red;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Red Ball");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.orange:
-                            output.setBackground(getResources().getDrawable(R.drawable.orangebook));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.orangeball));
                             isColorSelected = true;
-                            orangeBookS.start();
+                            orangeballS.start();
                             colorSelected = orange;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Orange Ball");
+                            outputText.setTextSize(30);
+
                             break;
 
-                        case R.id.book:
-                            output.setBackground(getResources().getDrawable(R.drawable.book));
-                            bookS.start();
+                        case R.id.ball:
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.ball));
+                            ballS.start();
                             isShapeSelected=true;
-                            shapeSelected = book;
+                            shapeSelected = ball;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Ball");
+                            outputText.setTextSize(30);
 
                             break;
-                        case R.id.cap:
-                            output.setBackground(getResources().getDrawable(R.drawable.cap));
+                        case R.id.bat:
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.bat));
                             isShapeSelected=true;
-                            capS.start();
-                            shapeSelected = cap;
+                            batS.start();
+                            shapeSelected = bat;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Bat");
+                            outputText.setTextSize(30);
 
                             break;
                         case R.id.chair:
-                            output.setBackground(getResources().getDrawable(R.drawable.chair));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.chair));
                             isShapeSelected=true;
                             chairS.start();
                             shapeSelected = chair;
 
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Chair");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.pen:
-                            output.setBackground(getResources().getDrawable(R.drawable.pen));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.pen));
                             isShapeSelected=true;
                             penS.start();
                             shapeSelected = pen;
 
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Pen");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.pencil:
-                            output.setBackground(getResources().getDrawable(R.drawable.pencil));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.pencil));
                             isShapeSelected=true;
                             pencilS.start();
                             shapeSelected = pencil;
 
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Pencil");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.table:
-                            output.setBackground(getResources().getDrawable(R.drawable.table));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.table));
                             isShapeSelected=true;
                             tableS.start();
                             shapeSelected = table;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Table");
+                            outputText.setTextSize(30);
 
                             break;
                     }
@@ -408,165 +642,317 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.pencil:
                     switch (id) {
                         case R.id.black:
-                            output.setBackground(getResources().getDrawable(R.drawable.blackpencil));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.blackpencil));
                             isColorSelected = true;
                             blackPencilS.start();
                             colorSelected = black;
 
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Black Pencil");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.blue:
-                            output.setBackground(getResources().getDrawable(R.drawable.bluepencil));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.bluepencil));
                             colorSelected = blue;
                             bluePencilS.start();
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Blue Pencil");
+                            outputText.setTextSize(30);
                             break;
                         case R.id.green:
-                            output.setBackground(getResources().getDrawable(R.drawable.greenpencil));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.greenpencil));
                             isColorSelected = true;
                             colorSelected = green;
                             greenPencilS.start();
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Green Pencil");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.yellow:
-                            output.setBackground(getResources().getDrawable(R.drawable.yellowpencil));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.yellowpencil));
                             isColorSelected = true;
                             colorSelected = yellow;
                             yellowPencilS.start();
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Yellow Pencil");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.red:
-                            output.setBackground(getResources().getDrawable(R.drawable.redpencil));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.redpencil));
                             isColorSelected = true;
                             colorSelected = red;
                             redPencilS.start();
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Red Pencil");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.orange:
-                            output.setBackground(getResources().getDrawable(R.drawable.orangepencil));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.orangepencil));
                             isColorSelected = true;
                             colorSelected = orange;
                             orangePencilS.start();
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Orange Pencil");
+                            outputText.setTextSize(30);
+
                             break;
 
-                        case R.id.book:
-                            output.setBackground(getResources().getDrawable(R.drawable.book));
-                            bookS.start();
+                        case R.id.ball:
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.ball));
+                            ballS.start();
                             isShapeSelected=true;
-                            shapeSelected = book;
+                            shapeSelected = ball;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Ball");
+                            outputText.setTextSize(30);
 
                             break;
-                        case R.id.cap:
-                            output.setBackground(getResources().getDrawable(R.drawable.cap));
+                        case R.id.bat:
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.bat));
                             isShapeSelected=true;
-                            capS.start();
-                            shapeSelected = cap;
+                            batS.start();
+                            shapeSelected = bat;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Bat");
+                            outputText.setTextSize(30);
 
                             break;
                         case R.id.chair:
-                            output.setBackground(getResources().getDrawable(R.drawable.chair));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.chair));
                             isShapeSelected=true;
                             chairS.start();
                             shapeSelected = chair;
 
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Chair");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.pen:
-                            output.setBackground(getResources().getDrawable(R.drawable.pen));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.pen));
                             isShapeSelected=true;
                             penS.start();
                             shapeSelected = pen;
 
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Pen");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.pencil:
-                            output.setBackground(getResources().getDrawable(R.drawable.pencil));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.pencil));
                             isShapeSelected=true;
                             pencilS.start();
                             shapeSelected = pencil;
 
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Pencil");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.table:
-                            output.setBackground(getResources().getDrawable(R.drawable.table));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.table));
                             isShapeSelected=true;
                             tableS.start();
                             shapeSelected = table;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Table");
+                            outputText.setTextSize(30);
 
                             break;
                     }
                     break;
-                case R.id.cap:
+                case R.id.bat:
                     switch (id) {
                         case R.id.black:
-                            output.setBackground(getResources().getDrawable(R.drawable.blackcap));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.blackbat));
                             isColorSelected = true;
-                            blackCapS.start();
+                            blackbatS.start();
                             colorSelected = black;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Black Bat");
+                            outputText.setTextSize(30);
 
                             break;
                         case R.id.blue:
-                            output.setBackground(getResources().getDrawable(R.drawable.bluecap));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.bluebat));
                             colorSelected = blue;
-                            blueCapS.start();
+                            bluebatS.start();
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Blue Bat");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.green:
-                            output.setBackground(getResources().getDrawable(R.drawable.greencap));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.greenbat));
                             isColorSelected = true;
-                            greenCapS.start();
+                            greenbatS.start();
                             colorSelected = green;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Green Bat");
+                            outputText.setTextSize(30);
                             break;
                         case R.id.yellow:
-                            output.setBackground(getResources().getDrawable(R.drawable.yellowcap));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.yellowbat));
                             isColorSelected = true;
-                            yellowCapS.start();
+                            yellowbatS.start();
                             colorSelected = yellow;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Yellow Bat");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.red:
-                            output.setBackground(getResources().getDrawable(R.drawable.redcap));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.redbat));
                             isColorSelected = true;
-                            redCapS.start();
+                            redbatS.start();
                             colorSelected = red;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Red Bat");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.orange:
-                            output.setBackground(getResources().getDrawable(R.drawable.orangecap));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.orangebat));
                             isColorSelected = true;
-                            orangeCapS.start();
+                            orangebatS.start();
                             colorSelected = orange;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Orange Bat");
+                            outputText.setTextSize(30);
+
                             break;
 
-                        case R.id.book:
-                            output.setBackground(getResources().getDrawable(R.drawable.book));
-                            bookS.start();
+                        case R.id.ball:
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.ball));
+                            ballS.start();
                             isShapeSelected=true;
-                            shapeSelected = book;
+                            shapeSelected = ball;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Ball");
+                            outputText.setTextSize(30);
 
                             break;
-                        case R.id.cap:
-                            output.setBackground(getResources().getDrawable(R.drawable.cap));
+                        case R.id.bat:
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.bat));
                             isShapeSelected=true;
-                            capS.start();
-                            shapeSelected = cap;
+                            batS.start();
+                            shapeSelected = bat;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Bat");
+                            outputText.setTextSize(30);
 
                             break;
                         case R.id.chair:
-                            output.setBackground(getResources().getDrawable(R.drawable.chair));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.chair));
                             isShapeSelected=true;
                             chairS.start();
                             shapeSelected = chair;
 
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Chair");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.pen:
-                            output.setBackground(getResources().getDrawable(R.drawable.pen));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.pen));
                             isShapeSelected=true;
                             penS.start();
                             shapeSelected = pen;
 
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Pen");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.pencil:
-                            output.setBackground(getResources().getDrawable(R.drawable.pencil));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.pencil));
                             isShapeSelected=true;
                             pencilS.start();
                             shapeSelected = pencil;
 
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Pencil");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.table:
-                            output.setBackground(getResources().getDrawable(R.drawable.table));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.table));
                             isShapeSelected=true;
                             tableS.start();
                             shapeSelected = table;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Table");
+                            outputText.setTextSize(30);
 
                             break;
                     }
@@ -575,82 +961,159 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.pen:
                     switch (id) {
                         case R.id.black:
-                            output.setBackground(getResources().getDrawable(R.drawable.blackpen));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.blackpen));
                             isColorSelected = true;
                             blackPenS.start();
                             colorSelected = black;
 
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Black Pen");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.blue:
-                            output.setBackground(getResources().getDrawable(R.drawable.bluepen));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.bluepen));
                             bluePenS.start();
                             colorSelected = blue;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Blue Pen");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.green:
-                            output.setBackground(getResources().getDrawable(R.drawable.greenpen));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.greenpen));
                             isColorSelected = true;
                             greenPenS.start();
                             colorSelected = green;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Green Pen");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.yellow:
-                            output.setBackground(getResources().getDrawable(R.drawable.yellowpen));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.yellowpen));
                             isColorSelected = true;
                             yellowPenS.start();;
                             colorSelected = yellow;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Yellow Pen");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.red:
-                            output.setBackground(getResources().getDrawable(R.drawable.redpen));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.redpen));
                             isColorSelected = true;
                             redPenS.start();
                             colorSelected = red;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Red Pen");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.orange:
-                            output.setBackground(getResources().getDrawable(R.drawable.orangepen));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.orangepen));
                             isColorSelected = true;
                             orangePenS.start();
                             colorSelected = orange;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Orange Pen");
+                            outputText.setTextSize(30);
+
                             break;
 
-                        case R.id.book:
-                            output.setBackground(getResources().getDrawable(R.drawable.book));
-                            bookS.start();
+                        case R.id.ball:
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.ball));
+                            ballS.start();
                             isShapeSelected=true;
-                            shapeSelected = book;
+                            shapeSelected = ball;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Ball");
+                            outputText.setTextSize(30);
 
                             break;
-                        case R.id.cap:
-                            output.setBackground(getResources().getDrawable(R.drawable.cap));
+                        case R.id.bat:
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.bat));
                             isShapeSelected=true;
-                            capS.start();
-                            shapeSelected = cap;
+                            batS.start();
+                            shapeSelected = bat;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Bat");
+                            outputText.setTextSize(30);
 
                             break;
                         case R.id.chair:
-                            output.setBackground(getResources().getDrawable(R.drawable.chair));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.chair));
                             isShapeSelected=true;
                             chairS.start();
                             shapeSelected = chair;
 
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Chair");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.pen:
-                            output.setBackground(getResources().getDrawable(R.drawable.pen));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.pen));
                             isShapeSelected=true;
                             penS.start();
                             shapeSelected = pen;
 
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Pen");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.pencil:
-                            output.setBackground(getResources().getDrawable(R.drawable.pencil));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.pencil));
                             isShapeSelected=true;
                             pencilS.start();
                             shapeSelected = pencil;
 
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Pencil");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.table:
-                            output.setBackground(getResources().getDrawable(R.drawable.table));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.table));
                             isShapeSelected=true;
                             tableS.start();
                             shapeSelected = table;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Table");
+                            outputText.setTextSize(30);
 
                             break;
                     }
@@ -658,82 +1121,159 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.chair:
                     switch (id) {
                         case R.id.black:
-                            output.setBackground(getResources().getDrawable(R.drawable.blackchair));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.blackchair));
                             isColorSelected = true;
                             blackChairS.start();
                             colorSelected = black;
 
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Black Chair");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.blue:
-                            output.setBackground(getResources().getDrawable(R.drawable.bluechair));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.bluechair));
                             colorSelected = blue;
                             blueChairS.start();
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Blue Chair");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.green:
-                            output.setBackground(getResources().getDrawable(R.drawable.greenchair));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.greenchair));
                             isColorSelected = true;
                             greenChairS.start();
                             colorSelected = green;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Green Chair");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.yellow:
-                            output.setBackground(getResources().getDrawable(R.drawable.yellowchair));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.yellowchair));
                             isColorSelected = true;
                             yellowChairS.start();
                             colorSelected = yellow;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Yellow Chair");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.red:
-                            output.setBackground(getResources().getDrawable(R.drawable.redchair));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.redchair));
                             isColorSelected = true;
                             redChairS.start();
                             colorSelected = red;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Red Chair");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.orange:
-                            output.setBackground(getResources().getDrawable(R.drawable.orangechair));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.orangechair));
                             isColorSelected = true;
                             orangeChairS.start();
                             colorSelected = orange;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Orange Chair");
+                            outputText.setTextSize(30);
+
                             break;
 
-                        case R.id.book:
-                            output.setBackground(getResources().getDrawable(R.drawable.book));
-                            bookS.start();
+                        case R.id.ball:
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.ball));
+                            ballS.start();
                             isShapeSelected=true;
-                            shapeSelected = book;
+                            shapeSelected = ball;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Ball");
+                            outputText.setTextSize(30);
 
                             break;
-                        case R.id.cap:
-                            output.setBackground(getResources().getDrawable(R.drawable.cap));
+                        case R.id.bat:
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.bat));
                             isShapeSelected=true;
-                            capS.start();
-                            shapeSelected = cap;
+                            batS.start();
+                            shapeSelected = bat;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Bat");
+                            outputText.setTextSize(30);
 
                             break;
                         case R.id.chair:
-                            output.setBackground(getResources().getDrawable(R.drawable.chair));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.chair));
                             isShapeSelected=true;
                             chairS.start();
                             shapeSelected = chair;
 
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Chair");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.pen:
-                            output.setBackground(getResources().getDrawable(R.drawable.pen));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.pen));
                             isShapeSelected=true;
                             penS.start();
                             shapeSelected = pen;
 
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Pen");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.pencil:
-                            output.setBackground(getResources().getDrawable(R.drawable.pencil));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.pencil));
                             isShapeSelected=true;
                             pencilS.start();
                             shapeSelected = pencil;
 
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Pencil");
+                            outputText.setTextSize(30);
+
                             break;
                         case R.id.table:
-                            output.setBackground(getResources().getDrawable(R.drawable.table));
+                            objectImages.setBackground(getResources().getDrawable(R.drawable.table));
                             isShapeSelected=true;
                             tableS.start();
                             shapeSelected = table;
+
+                            output.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            objectImages.setVisibility(View.VISIBLE);
+                            outputText.setTextColor(Color.parseColor("#000000"));
+                            outputText.setText("Table");
+                            outputText.setTextSize(30);
 
                             break;
                     }

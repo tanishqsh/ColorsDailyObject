@@ -25,7 +25,7 @@
             android:orientation="horizontal"
             android:layout_weight="1"
             android:weightSum="3"
-            android:background="#fff"
+            android:background="#FFF"
             android:layout_height="match_parent"
             android:baselineAligned="false">
 
@@ -34,20 +34,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_weight="1"
-                android:id="@+id/book"
-                android:layout_margin="10dp"
-                android:background="@drawable/book"
-                android:layout_height="match_parent">
+                android:id="@+id/bat"
+                android:layout_margin="2dp"
+                android:background="@drawable/bat"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:id="@+id/cap"
+                android:id="@+id/ball"
                 android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:background="@drawable/cap"
-                android:layout_height="match_parent">
+                android:layout_margin="2dp"
+                android:background="@drawable/ball"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
             </LinearLayout>
 
@@ -55,9 +57,10 @@
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/chair"
-                android:layout_margin="10dp"
+                android:layout_margin="2dp"
                 android:background="@drawable/chair"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
             </LinearLayout>
 
@@ -71,7 +74,7 @@
             android:layout_weight="1"
             android:id="@+id/ObjectLowerHalf"
             android:orientation="horizontal"
-            android:background="#fff"
+            android:background="#FFF"
             android:weightSum="3"
             android:layout_height="match_parent">
 
@@ -81,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:layout_margin="10dp"
+                android:layout_margin="2dp"
                 android:id="@+id/pen"
                 android:background="@drawable/pen"
                 android:layout_height="match_parent">
@@ -91,7 +94,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_weight="1"
-                android:layout_margin="10dp"
+                android:layout_margin="2dp"
                 android:id="@+id/pencil"
                 android:orientation="horizontal"
                 android:background="@drawable/pencil"
@@ -104,7 +107,7 @@
                 android:layout_weight="1"
                 android:id="@+id/table"
                 android:orientation="horizontal"
-                android:layout_margin="10dp"
+                android:layout_margin="2dp"
                 android:background="@drawable/table"
                 android:layout_height="match_parent">
 
@@ -121,11 +124,33 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_weight="1"
+        android:layout_gravity="center"
+        android:weightSum="5"
         android:id="@+id/output"
-        android:padding="20dp"
-        android:orientation="horizontal"
+        android:gravity="center"
+        android:orientation="vertical"
         android:background="#fff"
         android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/objectImages"
+            android:layout_margin="-10dp"
+            android:layout_width="180dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+             />
+
+        <TextView
+            android:id="@+id/outputText"
+            android:layout_width="match_parent"
+            android:layout_weight="4"
+            android:layout_marginTop="-10dp"
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:text=""
+            android:layout_height="match_parent" />
+
 
     </LinearLayout>
 
@@ -143,7 +168,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:background="#1976d2"
+            android:background="#FFFFFF"
             android:id="@+id/ColorUpperHalf"
             android:weightSum="3"
             android:orientation="horizontal"
@@ -153,6 +178,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_weight="1"
+                android:layout_margin="2dp"
                 android:id="@+id/black"
                 android:orientation="horizontal"
                 android:background="#000000"
@@ -163,6 +189,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_weight="1"
+                android:layout_margin="2dp"
                 android:id="@+id/red"
                 android:orientation="horizontal"
                 android:background="#D32F2F"
@@ -173,6 +200,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_weight="1"
+                android:layout_margin="2dp"
                 android:id="@+id/yellow"
                 android:orientation="horizontal"
                 android:background="#FBC02D"
@@ -189,7 +217,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:background="#2196F3"
+            android:background="#FFFFFF"
             android:weightSum="3"
             android:id="@+id/ColorLowerHalf"
             android:orientation="horizontal"
@@ -202,6 +230,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_weight="1"
+                android:layout_margin="2dp"
                 android:id="@+id/orange"
                 android:orientation="horizontal"
                 android:background="#FF5722"
@@ -212,6 +241,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_weight="1"
+                android:layout_margin="2dp"
                 android:id="@+id/green"
                 android:orientation="horizontal"
                 android:background="#4CAF50"
@@ -222,6 +252,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_weight="1"
+                android:layout_margin="2dp"
                 android:orientation="horizontal"
                 android:id="@+id/blue"
                 android:background="#1976D2"
