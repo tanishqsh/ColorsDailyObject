@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     LinearLayout ball, bat, chair, pen, pencil, table;
@@ -142,6 +145,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bluebatS = MediaPlayer.create(this, R.raw.bluebat);
         yellowbatS = MediaPlayer.create(this, R.raw.yellowbat);
         greenbatS = MediaPlayer.create(this, R.raw.greenbat);
+
+        // Load an ad into the AdMob banner view.
+        AdView adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .setRequestAgent("android_studio:ad_template").build();
+        adView.loadAd(adRequest);
 
     }
 
