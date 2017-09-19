@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -25,29 +27,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     LinearLayout shapeSelected;
     LinearLayout colorSelected;
 
-    MediaPlayer blueS;
-    MediaPlayer redS;
-    MediaPlayer orangeS;
-    MediaPlayer yellowS;
-    MediaPlayer blackS;
-    MediaPlayer greenS;
-
     ImageView objectImages;
     TextView outputText;
 
-    MediaPlayer chairS, tableS, batS, ballS, pencilS, penS;
-    MediaPlayer blackChairS, blueChairS, redChairS, yellowChairS, greenChairS, orangeChairS;
-    MediaPlayer blackTableS, blueTableS, redTableS, yellowTableS, greenTableS, orangeTableS;
-    MediaPlayer blackbatS, bluebatS, redbatS, yellowbatS, greenbatS, orangebatS;
-    MediaPlayer blackballS, blueballS, redballS, yellowballS, greenballS, orangeballS;
-    MediaPlayer blackPencilS, bluePencilS, redPencilS, yellowPencilS, greenPencilS, orangePencilS;
-    MediaPlayer blackPenS, bluePenS, redPenS, yellowPenS, greenPenS, orangePenS;
 
+
+    MediaPlayer Sound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MobileAds.initialize(this, "ca-app-pub-9399213409638993~3815902149");
+
 
         ball = (LinearLayout) findViewById(R.id.ball);
         bat = (LinearLayout) findViewById(R.id.bat);
@@ -62,9 +55,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         yellow = (LinearLayout) findViewById(R.id.yellow);
         green = (LinearLayout) findViewById(R.id.green);
         blue = (LinearLayout) findViewById(R.id.blue);
-
-        int colorids[] = {R.id.black, R.id.blue, R.id.red, R.id.yellow, R.id.orange, R.id.green};
-        int objectids[] = {R.id.table, R.id.ball, R.id.bat, R.id.pen, R.id.pencil, R.id.chair};
 
         objectImages = (ImageView) findViewById(R.id.objectImages);
         outputText = (TextView) findViewById(R.id.outputText);
@@ -82,75 +72,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         blue.setOnClickListener(this);
         red.setOnClickListener(this);
 
-        //colors
-        blueS = MediaPlayer.create(this, R.raw.blue);
-        redS = MediaPlayer.create(this, R.raw.red);
-        orangeS = MediaPlayer.create(this, R.raw.orange);
-        yellowS = MediaPlayer.create(this, R.raw.yellow);
-        blackS = MediaPlayer.create(this, R.raw.black);
-        greenS = MediaPlayer.create(this, R.raw.green);
+        Sound = MediaPlayer.create(this, R.raw.blue);
 
-        //objects
-        chairS = MediaPlayer.create(this, R.raw.chair);
-        ballS = MediaPlayer.create(this, R.raw.ball);
-        batS = MediaPlayer.create(this, R.raw.bat);
-        penS = MediaPlayer.create(this, R.raw.pen);
-        pencilS = MediaPlayer.create(this, R.raw.pencil);
-        tableS = MediaPlayer.create(this, R.raw.table);
-
-        //combination of table
-        blackTableS = MediaPlayer.create(this, R.raw.blacktable);
-        redTableS = MediaPlayer.create(this, R.raw.redtable);
-        orangeTableS = MediaPlayer.create(this, R.raw.orangetable);
-        blueTableS = MediaPlayer.create(this, R.raw.bluetable);
-        yellowTableS = MediaPlayer.create(this, R.raw.yellowtable);
-        greenTableS = MediaPlayer.create(this, R.raw.greentable);
-
-        //combination of chair
-        blackChairS = MediaPlayer.create(this, R.raw.blackchair);
-        redChairS = MediaPlayer.create(this, R.raw.redchair);
-        orangeChairS = MediaPlayer.create(this, R.raw.orangechair);
-        blueChairS = MediaPlayer.create(this, R.raw.bluechair);
-        yellowChairS = MediaPlayer.create(this, R.raw.yellowchair);
-        greenChairS = MediaPlayer.create(this, R.raw.greenchair);
-
-        //combination of pen
-        blackPenS = MediaPlayer.create(this, R.raw.blackpen);
-        redPenS = MediaPlayer.create(this, R.raw.redpen);
-        orangePenS = MediaPlayer.create(this, R.raw.orangepen);
-        bluePenS = MediaPlayer.create(this, R.raw.bluepen);
-        yellowPenS = MediaPlayer.create(this, R.raw.yellowpen);
-        greenPenS = MediaPlayer.create(this, R.raw.greenpen);
-
-        //combination of pencil
-        blackPencilS = MediaPlayer.create(this, R.raw.blackpencil);
-        redPencilS = MediaPlayer.create(this, R.raw.redpencil);
-        orangePencilS = MediaPlayer.create(this, R.raw.orangepencil);
-        bluePencilS = MediaPlayer.create(this, R.raw.bluepencil);
-        yellowPencilS = MediaPlayer.create(this, R.raw.yellowpencil);
-        greenPencilS = MediaPlayer.create(this, R.raw.greenpencil);
-
-        //combination of ball
-        blackballS = MediaPlayer.create(this, R.raw.blackball);
-        redballS = MediaPlayer.create(this, R.raw.redball);
-        orangeballS = MediaPlayer.create(this, R.raw.orangeball);
-        blueballS = MediaPlayer.create(this, R.raw.blueball);
-        yellowballS = MediaPlayer.create(this, R.raw.yellowball);
-        greenballS = MediaPlayer.create(this, R.raw.greenball);
-
-        //combination of bat
-        blackbatS = MediaPlayer.create(this, R.raw.blackbat);
-        redbatS = MediaPlayer.create(this, R.raw.redbat);
-        orangebatS = MediaPlayer.create(this, R.raw.orangebat);
-        bluebatS = MediaPlayer.create(this, R.raw.bluebat);
-        yellowbatS = MediaPlayer.create(this, R.raw.yellowbat);
-        greenbatS = MediaPlayer.create(this, R.raw.greenbat);
-
-        // Load an ad into the AdMob banner view.
-        AdView adView = (AdView) findViewById(R.id.adView);
+        /*
+        AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
-                .setRequestAgent("android_studio:ad_template").build();
-        adView.loadAd(adRequest);
+                .tagForChildDirectedTreatment(true)
+                .build();
+        mAdView.loadAd(adRequest);
+        */
+
 
     }
 
@@ -166,7 +97,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.black:
                     output.setBackgroundColor(getResources().getColor(R.color.black));
                     isColorSelected=true;
-                    blackS.start();
+                    Sound.release();
+                    Sound = MediaPlayer.create(this, R.raw.black);
+                    Sound.start();
+
 
                     //info
                     objectImages.setVisibility(View.GONE);
@@ -180,7 +114,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.blue:
                     output.setBackgroundColor(getResources().getColor(R.color.blue));
                     isColorSelected=true;
-                    blueS.start();
+                    Sound.release();
+                    Sound = MediaPlayer.create(this, R.raw.blue);
+                    Sound.start();
                     colorSelected = blue;
 
                     //info
@@ -193,7 +129,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.green:
                     output.setBackgroundColor(getResources().getColor(R.color.green));
                     isColorSelected=true;
-                    greenS.start();
+                    Sound.release();
+                    Sound = MediaPlayer.create(this, R.raw.green);
+                    Sound.start();
                     colorSelected = green;
 
                     //info
@@ -206,7 +144,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.yellow:
                     output.setBackgroundColor(getResources().getColor(R.color.yellow));
                     isColorSelected=true;
-                    yellowS.start();
+                    Sound.release();
+                    Sound = MediaPlayer.create(this, R.raw.yellow);
+                    Sound.start();
                     colorSelected = yellow;
 
                     //info
@@ -219,7 +159,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.red:
                     output.setBackgroundColor(getResources().getColor(R.color.red));
                     isColorSelected=true;
-                    redS.start();
+                    Sound.release();
+                    Sound = MediaPlayer.create(this, R.raw.red);
+                    Sound.start();
                     colorSelected = red;
 
                     //info
@@ -232,7 +174,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.orange:
                     output.setBackgroundColor(getResources().getColor(R.color.orange));
                     isColorSelected=true;
-                    orangeS.start();
+                    Sound.release();
+                    Sound = MediaPlayer.create(this, R.raw.orange);
+                    Sound.start();
                     colorSelected = orange;
 
                     //info
@@ -245,7 +189,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.ball:
                     output.setBackgroundColor(Color.parseColor("#FFFFFF"));
                     isShapeSelected=true;
-                    ballS.start();
+                    Sound.release();
+                    Sound = MediaPlayer.create(this, R.raw.ball);
+                    Sound.start();
                     shapeSelected = ball;
 
                     //object info
@@ -261,7 +207,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     output.setBackgroundColor(Color.parseColor("#FFFFFF"));
                     objectImages.setBackground(getResources().getDrawable(R.drawable.bat));
                     isShapeSelected=true;
-                    batS.start();
+                    Sound.release();
+                    Sound = MediaPlayer.create(this, R.raw.bat);
+                    Sound.start();
                     shapeSelected = bat;
 
                     objectImages.setVisibility(View.VISIBLE);
@@ -274,7 +222,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     output.setBackgroundColor(Color.parseColor("#FFFFFF"));
                     objectImages.setBackground(getResources().getDrawable(R.drawable.chair));
                     isShapeSelected=true;
-                    chairS.start();
+                    Sound.release();
+                    Sound = MediaPlayer.create(this, R.raw.chair);
+                    Sound.start();
                     shapeSelected = chair;
                     output.setBackgroundColor(Color.parseColor("#FFFFFF"));
                     objectImages.setVisibility(View.VISIBLE);
@@ -287,7 +237,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     output.setBackgroundColor(Color.parseColor("#FFFFFF"));
                     objectImages.setBackground(getResources().getDrawable(R.drawable.pen));
                     isShapeSelected=true;
-                    penS.start();
+                    Sound.release();
+                    Sound = MediaPlayer.create(this, R.raw.pen);
+                    Sound.start();
                     shapeSelected = pen;
 
                     objectImages.setVisibility(View.VISIBLE);
@@ -300,7 +252,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     output.setBackgroundColor(Color.parseColor("#FFFFFF"));
                     objectImages.setBackground(getResources().getDrawable(R.drawable.pencil));
                     isShapeSelected=true;
-                    pencilS.start();
+                    Sound.release();
+                    Sound = MediaPlayer.create(this, R.raw.pencil);
+                    Sound.start();
                     shapeSelected = pencil;
 
                     objectImages.setVisibility(View.VISIBLE);
@@ -312,7 +266,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.table:
                     objectImages.setBackground(getResources().getDrawable(R.drawable.table));
                     isShapeSelected=true;
-                    tableS.start();
+                    Sound.release();
+                    Sound = MediaPlayer.create(this, R.raw.table);
+                    Sound.start();
                     shapeSelected = table;
 
                     output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -334,7 +290,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.black:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.blacktable));
                             isColorSelected = true;
-                            blackTableS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.blacktable);
+                            Sound.start();
                             colorSelected = black;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -347,7 +305,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.blue:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.bluetable));
                             colorSelected = blue;
-                            blueTableS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.bluetable);
+                            Sound.start();
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
                             objectImages.setVisibility(View.VISIBLE);
@@ -359,7 +319,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.green:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.greentable));
                             isColorSelected = true;
-                            greenTableS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.greentable);
+                            Sound.start();
                             colorSelected = green;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -372,7 +334,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.yellow:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.yellowtable));
                             isColorSelected = true;
-                            yellowTableS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.yellowtable);
+                            Sound.start();
                             colorSelected = yellow;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -385,7 +349,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.red:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.redtable));
                             isColorSelected = true;
-                            redTableS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.redtable);
+                            Sound.start();
                             colorSelected = red;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -398,7 +364,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.orange:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.orangetable));
                             isColorSelected = true;
-                            orangeTableS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.orangetable);
+                            Sound.start();
                             colorSelected = orange;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -410,7 +378,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         case R.id.ball:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.ball));
-                            ballS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.ball);
+                            Sound.start();
                             isShapeSelected=true;
                             shapeSelected = ball;
 
@@ -424,7 +394,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.bat:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.bat));
                             isShapeSelected=true;
-                            batS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.bat);
+                            Sound.start();
                             shapeSelected = bat;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -437,7 +409,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.chair:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.chair));
                             isShapeSelected=true;
-                            chairS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.chair);
+                            Sound.start();
                             shapeSelected = chair;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -450,7 +424,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.pen:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.pen));
                             isShapeSelected=true;
-                            penS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.pen);
+                            Sound.start();
                             shapeSelected = pen;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -463,7 +439,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.pencil:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.pencil));
                             isShapeSelected=true;
-                            pencilS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.pencil);
+                            Sound.start();
                             shapeSelected = pencil;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -476,7 +454,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.table:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.table));
                             isShapeSelected=true;
-                            tableS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.table);
+                            Sound.start();
                             shapeSelected = table;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -493,7 +473,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.black:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.blackball));
                             isColorSelected = true;
-                            blackballS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.blackball);
+                            Sound.start();
                             colorSelected = black;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -505,7 +487,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             break;
                         case R.id.blue:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.blueball));
-                            blueballS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.blueball);
+                            Sound.start();
                             colorSelected = blue;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -518,7 +502,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.green:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.greenball));
                             isColorSelected = true;
-                            greenballS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.greenball);
+                            Sound.start();
                             colorSelected = green;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -531,7 +517,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.yellow:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.yellowball));
                             isColorSelected = true;
-                            yellowballS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.yellowball);
+                            Sound.start();
                             colorSelected = yellow;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -543,7 +531,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.red:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.redball));
                             isColorSelected = true;
-                            redballS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.redball);
+                            Sound.start();
                             colorSelected = red;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -556,7 +546,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.orange:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.orangeball));
                             isColorSelected = true;
-                            orangeballS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.orangeball);
+                            Sound.start();
                             colorSelected = orange;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -569,7 +561,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         case R.id.ball:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.ball));
-                            ballS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.ball);
+                            Sound.start();
                             isShapeSelected=true;
                             shapeSelected = ball;
 
@@ -583,7 +577,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.bat:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.bat));
                             isShapeSelected=true;
-                            batS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.bat);
+                            Sound.start();
                             shapeSelected = bat;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -596,7 +592,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.chair:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.chair));
                             isShapeSelected=true;
-                            chairS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.chair);
+                            Sound.start();
                             shapeSelected = chair;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -609,7 +607,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.pen:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.pen));
                             isShapeSelected=true;
-                            penS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.pen);
+                            Sound.start();
                             shapeSelected = pen;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -622,7 +622,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.pencil:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.pencil));
                             isShapeSelected=true;
-                            pencilS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.pencil);
+                            Sound.start();
                             shapeSelected = pencil;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -635,7 +637,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.table:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.table));
                             isShapeSelected=true;
-                            tableS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.table);
+                            Sound.start();
                             shapeSelected = table;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -653,7 +657,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.black:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.blackpencil));
                             isColorSelected = true;
-                            blackPencilS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.blackpencil);
+                            Sound.start();
                             colorSelected = black;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -666,7 +672,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.blue:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.bluepencil));
                             colorSelected = blue;
-                            bluePencilS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.bluepencil);
+                            Sound.start();
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
                             objectImages.setVisibility(View.VISIBLE);
@@ -678,7 +686,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             objectImages.setBackground(getResources().getDrawable(R.drawable.greenpencil));
                             isColorSelected = true;
                             colorSelected = green;
-                            greenPencilS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.greenpencil);
+                            Sound.start();
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
                             objectImages.setVisibility(View.VISIBLE);
@@ -691,7 +701,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             objectImages.setBackground(getResources().getDrawable(R.drawable.yellowpencil));
                             isColorSelected = true;
                             colorSelected = yellow;
-                            yellowPencilS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.yellowpencil);
+                            Sound.start();
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
                             objectImages.setVisibility(View.VISIBLE);
@@ -704,7 +716,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             objectImages.setBackground(getResources().getDrawable(R.drawable.redpencil));
                             isColorSelected = true;
                             colorSelected = red;
-                            redPencilS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.redpencil);
+                            Sound.start();
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
                             objectImages.setVisibility(View.VISIBLE);
@@ -717,7 +731,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             objectImages.setBackground(getResources().getDrawable(R.drawable.orangepencil));
                             isColorSelected = true;
                             colorSelected = orange;
-                            orangePencilS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.orangepencil);
+                            Sound.start();
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
                             objectImages.setVisibility(View.VISIBLE);
@@ -729,7 +745,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         case R.id.ball:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.ball));
-                            ballS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.ball);
+                            Sound.start();
                             isShapeSelected=true;
                             shapeSelected = ball;
 
@@ -743,7 +761,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.bat:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.bat));
                             isShapeSelected=true;
-                            batS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.bat);
+                            Sound.start();
                             shapeSelected = bat;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -756,7 +776,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.chair:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.chair));
                             isShapeSelected=true;
-                            chairS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.chair);
+                            Sound.start();
                             shapeSelected = chair;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -769,7 +791,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.pen:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.pen));
                             isShapeSelected=true;
-                            penS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.pen);
+                            Sound.start();
                             shapeSelected = pen;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -782,7 +806,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.pencil:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.pencil));
                             isShapeSelected=true;
-                            pencilS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.pencil);
+                            Sound.start();
                             shapeSelected = pencil;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -795,7 +821,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.table:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.table));
                             isShapeSelected=true;
-                            tableS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.table);
+                            Sound.start();
                             shapeSelected = table;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -812,7 +840,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.black:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.blackbat));
                             isColorSelected = true;
-                            blackbatS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.blackbat);
+                            Sound.start();
                             colorSelected = black;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -825,7 +855,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.blue:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.bluebat));
                             colorSelected = blue;
-                            bluebatS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.bluebat);
+                            Sound.start();
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
                             objectImages.setVisibility(View.VISIBLE);
@@ -837,7 +869,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.green:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.greenbat));
                             isColorSelected = true;
-                            greenbatS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.greenbat);
+                            Sound.start();
                             colorSelected = green;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -849,7 +883,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.yellow:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.yellowbat));
                             isColorSelected = true;
-                            yellowbatS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.yellowbat);
+                            Sound.start();
                             colorSelected = yellow;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -862,7 +898,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.red:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.redbat));
                             isColorSelected = true;
-                            redbatS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.redbat);
+                            Sound.start();
                             colorSelected = red;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -875,7 +913,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.orange:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.orangebat));
                             isColorSelected = true;
-                            orangebatS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.orangebat);
+                            Sound.start();
                             colorSelected = orange;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -888,7 +928,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         case R.id.ball:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.ball));
-                            ballS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.ball);
+                            Sound.start();
                             isShapeSelected=true;
                             shapeSelected = ball;
 
@@ -902,7 +944,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.bat:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.bat));
                             isShapeSelected=true;
-                            batS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.bat);
+                            Sound.start();
                             shapeSelected = bat;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -915,7 +959,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.chair:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.chair));
                             isShapeSelected=true;
-                            chairS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.chair);
+                            Sound.start();
                             shapeSelected = chair;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -928,7 +974,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.pen:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.pen));
                             isShapeSelected=true;
-                            penS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.pen);
+                            Sound.start();
                             shapeSelected = pen;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -941,7 +989,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.pencil:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.pencil));
                             isShapeSelected=true;
-                            pencilS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.pencil);
+                            Sound.start();
                             shapeSelected = pencil;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -954,7 +1004,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.table:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.table));
                             isShapeSelected=true;
-                            tableS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.table);
+                            Sound.start();
                             shapeSelected = table;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -972,7 +1024,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.black:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.blackpen));
                             isColorSelected = true;
-                            blackPenS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.blackpen);
+                            Sound.start();
                             colorSelected = black;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -984,7 +1038,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             break;
                         case R.id.blue:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.bluepen));
-                            bluePenS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.bluepen);
+                            Sound.start();
                             colorSelected = blue;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -997,7 +1053,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.green:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.greenpen));
                             isColorSelected = true;
-                            greenPenS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.greenpen);
+                            Sound.start();
                             colorSelected = green;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -1010,7 +1068,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.yellow:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.yellowpen));
                             isColorSelected = true;
-                            yellowPenS.start();;
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.yellowpen);
+                            Sound.start();
                             colorSelected = yellow;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -1023,7 +1083,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.red:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.redpen));
                             isColorSelected = true;
-                            redPenS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.redpen);
+                            Sound.start();
                             colorSelected = red;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -1036,7 +1098,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.orange:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.orangepen));
                             isColorSelected = true;
-                            orangePenS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.orangepen);
+                            Sound.start();
                             colorSelected = orange;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -1049,7 +1113,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         case R.id.ball:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.ball));
-                            ballS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.ball);
+                            Sound.start();
                             isShapeSelected=true;
                             shapeSelected = ball;
 
@@ -1063,7 +1129,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.bat:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.bat));
                             isShapeSelected=true;
-                            batS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.bat);
+                            Sound.start();
                             shapeSelected = bat;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -1076,7 +1144,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.chair:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.chair));
                             isShapeSelected=true;
-                            chairS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.chair);
+                            Sound.start();
                             shapeSelected = chair;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -1089,7 +1159,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.pen:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.pen));
                             isShapeSelected=true;
-                            penS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.pen);
+                            Sound.start();
                             shapeSelected = pen;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -1102,7 +1174,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.pencil:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.pencil));
                             isShapeSelected=true;
-                            pencilS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.pencil);
+                            Sound.start();
                             shapeSelected = pencil;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -1115,7 +1189,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.table:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.table));
                             isShapeSelected=true;
-                            tableS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.table);
+                            Sound.start();
                             shapeSelected = table;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -1132,7 +1208,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.black:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.blackchair));
                             isColorSelected = true;
-                            blackChairS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.blackchair);
+                            Sound.start();
                             colorSelected = black;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -1145,7 +1223,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.blue:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.bluechair));
                             colorSelected = blue;
-                            blueChairS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.bluechair);
+                            Sound.start();
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
                             objectImages.setVisibility(View.VISIBLE);
@@ -1157,7 +1237,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.green:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.greenchair));
                             isColorSelected = true;
-                            greenChairS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.greenchair);
+                            Sound.start();
                             colorSelected = green;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -1170,7 +1252,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.yellow:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.yellowchair));
                             isColorSelected = true;
-                            yellowChairS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.yellowchair);
+                            Sound.start();
                             colorSelected = yellow;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -1183,7 +1267,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.red:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.redchair));
                             isColorSelected = true;
-                            redChairS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.redchair);
+                            Sound.start();
                             colorSelected = red;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -1196,7 +1282,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.orange:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.orangechair));
                             isColorSelected = true;
-                            orangeChairS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.orangechair);
+                            Sound.start();
                             colorSelected = orange;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -1209,7 +1297,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         case R.id.ball:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.ball));
-                            ballS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.ball);
+                            Sound.start();
                             isShapeSelected=true;
                             shapeSelected = ball;
 
@@ -1223,7 +1313,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.bat:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.bat));
                             isShapeSelected=true;
-                            batS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.bat);
+                            Sound.start();
                             shapeSelected = bat;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -1236,7 +1328,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.chair:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.chair));
                             isShapeSelected=true;
-                            chairS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.chair);
+                            Sound.start();
                             shapeSelected = chair;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -1249,7 +1343,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.pen:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.pen));
                             isShapeSelected=true;
-                            penS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.pen);
+                            Sound.start();
                             shapeSelected = pen;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -1262,7 +1358,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.pencil:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.pencil));
                             isShapeSelected=true;
-                            pencilS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.pencil);
+                            Sound.start();
                             shapeSelected = pencil;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -1275,7 +1373,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case R.id.table:
                             objectImages.setBackground(getResources().getDrawable(R.drawable.table));
                             isShapeSelected=true;
-                            tableS.start();
+                            Sound.release();
+                            Sound = MediaPlayer.create(this, R.raw.table);
+                            Sound.start();
                             shapeSelected = table;
 
                             output.setBackgroundColor(Color.parseColor("#FFFFFF"));

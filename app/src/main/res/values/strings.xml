@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Colours &amp; Objects</string>
-    <string name="admob_id">ca-app-pub-9399213409638993~3815902149</string>
+    <string name="app_name">ColorObjects</string>
     <string name="title_activity_main2">Main2Activity</string>
 
     <string name="action_settings">Settings</string>
@@ -9,7 +8,9 @@
         This is an ad unit ID for a banner test ad. Replace with your own banner ad unit id.
         For more information, see https://support.google.com/admob/answer/3052638
     <!- -->
+
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="banner_ad_unit_id_1">ca-app-pub-9399213409638993/9419582612</string>
+    <string name="finalbanner">ca-app-pub-9399213409638993/7458384240</string>
+
 
 </resources>
